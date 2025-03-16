@@ -14,7 +14,7 @@ function App(){
             tasks: [{
                 id: Date.now(),
                 task: "WADS Forum Assignment",
-                status: true
+                isCompleted: true
             }]
         }
     ]);

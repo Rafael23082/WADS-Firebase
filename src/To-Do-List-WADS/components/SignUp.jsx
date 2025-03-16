@@ -13,12 +13,12 @@ export const SignUp = ({users, setUsers}) => {
         }
     }
     const verifyUser = () => {
-        const userExists = users.some((user) => (user.email === email));
-        if (userExists){
-            alert("User already exists, login instead!")
+        const newUser = users.find((user) => user.email === email);
+        if (newUser) {
+            alert("Account already exists");
         } else {
-            setUsers([...users, {id: Date.now(), email:email, password:password}]);
-            alert("Account has been registered!");
+            setUsers([...users, {id:Date.now(), email:email, password:password, tasks:[]}]);
+            alert("Account Registered!")
         }
     }
     return(
