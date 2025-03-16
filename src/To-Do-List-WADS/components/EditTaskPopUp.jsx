@@ -3,13 +3,14 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-export const EditTaskPopUp = ({isOpen, updatingTask, tasks, setIsOpen, setTaskContainer}) => {
+export const EditTaskPopUp = ({isOpen, updatingTask, setIsOpen, user, users, setUsers}) => {
     const [newTaskName, setNewTaskName] = useState("");
 
+    const loggedInUser = users.find(userAccount => userAccount.id === user.id);
+
     const editTask = () => {
-        setTaskContainer(tasks.map(task =>
-            task.id === updatingTask.id ? { ...task, task: newTaskName } : task
-        ));
+        const newTasks = loggedInUser.tasks.map(task => task.id === updatingTask.id ? {...task, task:newTaskName} : task);
+        setUsers(users.map(userAccount => userAccount.id === user.id ? {...userAccount, tasks:newTasks} : userAccount));
 
         setIsOpen(false);
     };

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Usercontext } from "../App";
+import { useContext } from "react";
 
-export const SignUp = ({users, setUsers}) => {
+export const SignUp = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,6 +14,8 @@ export const SignUp = ({users, setUsers}) => {
             setPassword(value);
         }
     }
+    const {users, setUsers} = useContext(Usercontext);
+
     const verifyUser = () => {
         const newUser = users.find((user) => user.email === email);
         if (newUser) {

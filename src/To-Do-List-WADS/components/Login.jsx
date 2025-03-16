@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Usercontext } from "../App";
 
-export const Login = ({users, setUsers}) => {
+export const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,6 +14,7 @@ export const Login = ({users, setUsers}) => {
             setPassword(value);
         }
     }
+    const {users, user, setUser} = useContext(Usercontext);
     const login = () => {
         const account = users.find((user) => user.email === email);
         if (account){
@@ -20,11 +23,17 @@ export const Login = ({users, setUsers}) => {
                 alert("Email or Password is Incorrect!");
             } else {
                 navigate("/todo");
+                setUser(account);
             }
         } else {
             alert("Email or Password is Incorrect!");
         }
     }
+
+    useEffect(() => {
+        console.log(user);
+    }, [user])
+
     return(
         <div className="w-[100%] h-[100vh] flex justify-center items-center bg-[#393E46]">
             <button className="bg-[#00ADB5] px-5 py-2 rounded-[10px] w-fit hover:bg-[#008A92] duration-300 cursor-pointer absolute top-0 left-0 m-[2em] text-[#EEEEEE]" onClick={() => {navigate("/")}}>Home</button>
