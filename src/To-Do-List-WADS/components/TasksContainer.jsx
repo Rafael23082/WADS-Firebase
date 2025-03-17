@@ -2,15 +2,13 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EditTaskPopUp } from "./EditTaskPopUp";
 import { useState } from "react";
-import { Usercontext } from "../App";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const TaskContainer = ({showingCompleted, users, setUsers, user}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [updatedTask, setUpdatedTask] = useState(null);
     
-    const loggedInUser = users.find(userAccount => userAccount.id === user.id);
+    const loggedInUser = users.find(userAccount => userAccount.id === user?.id);
 
     const deleteTask = (deletedTask) => {
         const newTasks = loggedInUser.tasks.filter(task => task.id !== deletedTask.id);
@@ -18,7 +16,7 @@ export const TaskContainer = ({showingCompleted, users, setUsers, user}) => {
         setUsers(updatedUsers);
     }
     const changeStatus = (taskID) => {
-        const newTasks = loggedInUser.tasks.map(task => task.id === taskID ? {...task, completed:!task.complete}: task);
+        const newTasks = loggedInUser.tasks.map(task => task.id === taskID ? {...task, completed:!(task.complete)}: task);
         const updatedUsers = users.map(userAccount => userAccount.id === user.id ? {...userAccount, tasks:newTasks}: userAccount);
         setUsers(updatedUsers);
     }

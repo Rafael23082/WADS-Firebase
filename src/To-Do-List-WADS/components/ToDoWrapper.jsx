@@ -5,12 +5,14 @@ import { useContext } from "react";
 import { Usercontext } from "../App";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ProfilePopUp } from "./ProfilePopUp";
 
 export const ToDoWrapper = () => {
     const [task, setTask] = useState("");
     const [showingCompleted, setShowingCompleted] = useState(false);
     const navigate = useNavigate();
     const {users, setUsers, user} = useContext(Usercontext);
+    const [isOpen, setIsOpen] = useState(false);
 
     const addTask = () => {
         let newString = task.trim();
@@ -28,7 +30,7 @@ export const ToDoWrapper = () => {
 
     return(
         <>
-        <FontAwesomeIcon icon={faUserCircle} className="absolute text-[#EEEEEE] right-0 text-[2rem] mr-[1em] mt-[1em] cursor-pointer" />
+        <FontAwesomeIcon icon={faUserCircle} className="absolute text-[#EEEEEE] right-0 text-[2rem] mr-[1em] mt-[1em] cursor-pointer" onClick={() => setIsOpen(true)} />
         <div className="w-[100%] h-[100vh] flex items-center justify-center bg-[#393E46] text-[#EEEEEE]">
             <div className="w-[90%] h-auto shadow-2xl rounded-[20px] flex flex-col min-h-[400px] min-w-[300px] max-w-[1200px] bg-[#222831] pb-[2em] relative">
             <button className="bg-[#00ADB5] px-5 py-2 rounded-[10px] w-fit hover:bg-[#008A92] duration-300 cursor-pointer absolute top-0 left-0 m-[2em]" onClick={() => {navigate("/")}}>Back</button>
@@ -43,6 +45,9 @@ export const ToDoWrapper = () => {
                 </div>
             </div>
         </div>
+        {isOpen && 
+            <ProfilePopUp isOpen={isOpen} setIsOpen={setIsOpen} />        
+        }
         </>
     );
 }
